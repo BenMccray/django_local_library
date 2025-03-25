@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from datetime import date
 from ninja.security import django_auth
 
-api = NinjaAPI()
+api = NinjaAPI(csrf=True)
 
 
 class UserSchema(Schema):

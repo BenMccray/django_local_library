@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ author }}</h1>
+  <h2>Author's Books</h2>
+  {% if not author.book_set %}
+    <p>We don't currently have any books from this author in our library's collection.</p>
+  {% endif %}
+  <ul>
+    {% for book in author.book_set.all %}
+      <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+    {% endfor %}
+  </ul>
+{% endblock %}
+  {% block sidebar %}
+    {{ block.super }}
+
+    {% if perms.catalog.change_author or perms.catalog.delete_author %}
+    <hr>
+    <ul class="sidebar-nav">
+      {% if perms.catalog.change_author %}
+        <li><a href="{% url 'author-update' author.id %}">Update author</a></li>
+      {% endif %}
+      {% if not author.book_set.all and perms.catalog.delete_author %}
+        <li><a href="{% url 'author-delete' author.id %}">Delete author</a></li>
+      {% endif %}
+      </ul>
+    {% endif %}
+
+  {% endblock %}
+

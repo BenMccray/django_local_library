@@ -24,9 +24,10 @@
           <ul class="sidebar-nav">
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'books' %}">All books</a></li>
-            <li><a href="">All authors</a></li>
+            <li><a href="{%url 'authors' %}">All authors</a></li>
           </ul>
           <ul class="sidebar-nav">
+            <hr>
             {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
 
@@ -49,9 +50,12 @@
             {% endif %}
           </ul>
           <ul class="sidebar-nav">
+
             {% if user.is_staff %}
+            <hr>
             <li>Staff</li>
             <li><a href="{% url 'all-borrowed' %}">All Borrowed</a></li>
+            <li><a href="{% url 'author-create' %}">Create author</a></li>
             {% endif %}
           </ul>
           {% endblock %}
